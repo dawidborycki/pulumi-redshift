@@ -1,10 +1,8 @@
-import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
 
 // VPC
 const vpc = new aws.ec2.Vpc("pulumi-vpc", {
     cidrBlock: "10.1.0.0/16",
-
     tags: {
         Name: "pulumi-vpc"
     }
@@ -19,7 +17,7 @@ const internetGateway = new aws.ec2.InternetGateway("internet-gateway", {
 });
 
 // Subnet
-const subnet = new aws.ec2.Subnet("pulumi-subnet", {    
+const subnet = new aws.ec2.Subnet("pulumi-subnet", {
     cidrBlock: "10.1.1.0/24",
     availabilityZone: "us-east-1a",
     vpcId: vpc.id,
@@ -31,10 +29,10 @@ const subnet = new aws.ec2.Subnet("pulumi-subnet", {
 // Subnet group
 const subnetGroup = new aws.redshift.SubnetGroup("pulumi-subnet-group", {
     subnetIds: [
-        subnet.id,        
+        subnet.id,
     ],
     tags: {
-        environment: "Pulumi",
+        Name: "pulumi-subnet-group",
     },
 });
 
